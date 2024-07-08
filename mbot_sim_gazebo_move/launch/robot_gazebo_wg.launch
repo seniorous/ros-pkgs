@@ -1,0 +1,13 @@
+<launch>
+    <include file="$(find gazebo_ros)/launch/willowgarage_world.launch"></include>
+    
+    <arg name="model" default="$(find xacro)/xacro --inorder '$(find mbot_sim_gazebo)/urdf/xacro/robot.xacro'" />
+    
+    <param name="robot_description" command="$(arg model)" />
+    
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+    
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+    
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model mrobot -param robot_description"/>
+</launch>

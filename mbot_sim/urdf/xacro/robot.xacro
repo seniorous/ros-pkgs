@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot name="arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find mbot_sim)/urdf/xacro/robot_base.xacro" />
+    <xacro:include filename="$(find mbot_sim)/urdf/xacro/robot_camera.xacro" />
+    <xacro:include filename="$(find mbot_sim)/urdf/xacro/robot_lidar.xacro" />
+    <xacro:property name="camera_offset_x" value="-0.17" />
+    <xacro:property name="camera_offset_y" value="0" />
+    <xacro:property name="camera_offset_z" value="0.10" />
+    <xacro:property name="lidar_offset_x" value="0.17" />
+    <xacro:property name="lidar_offset_y" value="0" />
+    <xacro:property name="lidar_offset_z" value="0.10" />
+    
+    <mbot_base/>
+    
+    <joint name="camera_joint" type="fixed">
+        <origin xyz="${camera_offset_x} ${camera_offset_y} ${camera_offset_z}" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="camera_link"/>
+    </joint>
+    
+    <xacro:usb_camera prefix="camera"/>
+    
+    <joint name="lidar_joint" type="fixed">
+        <origin xyz="${lidar_offset_x} ${lidar_offset_y} ${lidar_offset_z}" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="lidar_link"/>
+    </joint>
+    
+    <xacro:hokuyo_lidar prefix="lidar"/>
+</robot>
